@@ -40,23 +40,7 @@ public class SchemaNodeLoadClauseBuilder extends AbstractSchemaLoadClauseBuilder
 
     public String build(String variable, String label, int depth) {
 
-        if (depth < 0) {
-            return createExplicitMatchAndReturnClauses(label, variable, depth);
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        newLine(sb);
-
-        sb.append(" RETURN ");
-        newLine(sb);
-        sb.append("n");
-        newLine(sb);
-
-        Node node = schema.findNode(label);
-        expand(sb, variable, node, depth);
-
-        return sb.toString();
+        return createExplicitMatchAndReturnClauses(label, variable, depth);
     }
 
     String createExplicitMatchAndReturnClauses(String label, String variable, int maxDepth) {
