@@ -67,9 +67,14 @@ public class SchemaNodeLoadClauseBuilder extends AbstractSchemaLoadClauseBuilder
             loadClause.append(" ").append(iterator.next());
         }
 
-        String returnClause = Stream.iterate(0, i -> i + 1).limit(iterator.getDepth())
-            .map(i -> "p" + i)
-            .collect(joining(",", " RETURN ", ""));
+        String returnClause;
+        if(iterator.getDepth() == 0) {
+            returnClause = "RETURN " + variable;
+        } else {
+            returnClause = Stream.iterate(0, i -> i + 1).limit(iterator.getDepth())
+                .map(i -> "p" + i)
+                .collect(joining(",", " RETURN ", ""));
+        }
         loadClause.append(returnClause);
 
         return loadClause.toString();
